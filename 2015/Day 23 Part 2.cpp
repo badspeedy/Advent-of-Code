@@ -144,7 +144,7 @@ int main() {
 
 		case end:
 				std::cout << b << std::endl;
-				while (1);
+				return 0;
 				break;
 
 		default:
