@@ -39,7 +39,7 @@ cmd hashit(std::string const& inString) {
 int main() {
 	prog main[50];
 	int line = 0;
-	std::ifstream file("task9.txt");
+	std::ifstream file("Day 23.txt");
 
 	while (file.is_open()) {
 		while (std::getline(file, s_input)) {
@@ -62,9 +62,10 @@ int main() {
 		}
 
 		file.close();
+		main[line].cmd = "end";
 	}
 
-	unsigned long long a = 1, b = 0, pc = 0;
+	unsigned long long a = 0, b = 0, pc = 0;
 
 	while (1) {
 		switch (hashit(main[pc].cmd))
