@@ -2,9 +2,12 @@
 
 int main() {
 
-	int loop = 1;
-	int x_target = 3075, y_target = 2981, x_current = 1, y_current = 1;
-	unsigned long long code = 20151125;
+	int x_target = 3075, y_target = 2981;	//Target code location
+
+	int x_current = 6, y_current = 6;		//Current code location
+	unsigned long long code = 27995004;		//Current Code
+
+	int loop = x_current + y_current - 1;
 
 	do {
 
