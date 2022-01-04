@@ -26,7 +26,7 @@ int main() {
 
 	std::ifstream file("Day 9.txt");
 
-	for (int i = 0; i < 8; i++) temp[i][i] = 0;
+	for (int i = 0; i < 8; i++) temp[i][i] = UINT_MAX;
 	while (file.is_open()) {
 		while (std::getline(file, s_input)) {
 			temp[convert(s_input[0])][convert(s_input[5])] = (int)std::stoi(s_input.substr(8));
@@ -51,7 +51,7 @@ int main() {
 			unsigned int sum = 0;
 
 			do {
-				unsigned int low = 0;
+				unsigned int low = UINT_MAX;
 				tested[y] = 1;
 				for (int j = 0; j < 8; j++) {
 					if (work[y][j] < low) {
