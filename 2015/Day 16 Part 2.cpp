@@ -1,7 +1,3 @@
-// Advent of Code.cpp : This file contains the 'main' function. Program
-// execution begins and ends there.
-//
-
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -12,15 +8,9 @@ int combos;
 std::string s_input;
 
 struct aunts {
-	std::string item1;
-	int qty1;
-	std::string item2;
-	int qty2;
-	std::string item3;
-	int qty3;
-	bool no1;
-	bool no2;
-	bool no3;
+	std::string item[3];
+	int qty[3];
+	bool no[3] = { false };
 };
 
 struct items {
@@ -46,25 +36,19 @@ int main() {
 
 	while (file.is_open()) {
 		int line = 0;
-		std::size_t locate1, locate2, locate3, locate4, locate5, locate6;
+		std::size_t locate[6];
 		while (std::getline(file, s_input)) {
-			aunt[line].no1 = false;
-			aunt[line].no2 = false;
-			aunt[line].no3 = false;
-			locate1 = s_input.find(':') + 2;
-			locate2 = s_input.find(':', locate1) + 2;
-			locate3 = s_input.find(',') + 2;
-			locate4 = s_input.find(':', locate3) + 2;
-			locate5 = s_input.find(',', locate4) + 2;
-			locate6 = s_input.find(':', locate5) + 2;
+			locate[0] = s_input.find(':') + 2;
+			locate[1] = s_input.find(':', locate[0]) + 2;
+			locate[2] = s_input.find(',') + 2;
+			locate[3] = s_input.find(':', locate[2]) + 2;
+			locate[4] = s_input.find(',', locate[3]) + 2;
+			locate[5] = s_input.find(':', locate[4]) + 2;
 
-			aunt[line].item1 = s_input.substr(locate1, (locate2 - locate1 - 2));
-			aunt[line].qty1 = std::stoi(s_input.substr(locate2, locate3 - locate2 - 2));
-			aunt[line].item2 = s_input.substr(locate3, locate4 - locate3 - 2);
-			aunt[line].qty2 = std::stoi(s_input.substr(locate4, locate5 - locate4 - 2));
-			aunt[line].item3 = s_input.substr(locate5, locate6 - locate5 - 2);
-			aunt[line].qty3 = std::stoi(s_input.substr(locate6));
-
+			for(int i = 0; i < 6; i+=2) {
+				aunt[line].item[i/2] = s_input.substr(locate[i], (locate[i+1] - locate[i] - 2));
+				aunt[line].qty[i/2] = std::stoi(s_input.substr(locate[i+1], locate[i+2] - locate[i+1] - 2));
+			}
 			line++;
 
 		}
@@ -74,45 +58,24 @@ int main() {
 
 	for (int i = 0; i < 500; i++) {
 		for (int j = 0; j < 10; j++) {
-			if (aunt[i].item1 == item[j].item) {
-				if ((aunt[i].item1 == "cats" || aunt[i].item1 == "trees") && aunt[i].qty1 > item[j].qty) {
-					aunt[i].no1 = true;
-				}
-				else if ((aunt[i].item1 == "pomeranians" || aunt[i].item1 == "goldfish") && aunt[i].qty1 < item[j].qty) {
-					aunt[i].no1 = true;
-				}
-				else if (aunt[i].qty1 == item[j].qty) {
-					aunt[i].no1 = true;
-				}
-			}
-			if (aunt[i].item2 == item[j].item) {
-				if ((aunt[i].item2 == "cats" || aunt[i].item2 == "trees") && aunt[i].qty2 > item[j].qty) {
-					aunt[i].no2 = true;
-				}
-				else if ((aunt[i].item2 == "pomeranians" || aunt[i].item2 == "goldfish") && aunt[i].qty2 < item[j].qty) {
-					aunt[i].no2 = true;
-				}
-				else if (aunt[i].qty2 == item[j].qty) {
-					aunt[i].no2 = true;
-				}
-			}
-			if (aunt[i].item3 == item[j].item) {
-				if ((aunt[i].item3 == "cats" || aunt[i].item3 == "trees") && aunt[i].qty3 > item[j].qty) {
-					aunt[i].no3 = true;
-				}
-				else if ((aunt[i].item3 == "pomeranians" || aunt[i].item3 == "goldfish") && aunt[i].qty3 < item[j].qty) {
-					aunt[i].no3 = true;
-				}
-				else if (aunt[i].qty3 == item[j].qty) {
-					aunt[i].no3 = true;
+			for (int k = 0; k < 3; k++) {
+				if (aunt[i].item[k] == item[j].item) {
+					if ((aunt[i].item[k] == "cats" || aunt[i].item[k] == "trees") && aunt[i].qty[k] > item[j].qty) {
+						aunt[i].no[k] = true;
+					}
+					else if ((aunt[i].item[k] == "pomeranians" || aunt[i].item[k] == "goldfish") && aunt[i].qty[k] < item[j].qty) {
+						aunt[i].no[k] = true;
+					}
+					else if (aunt[i].qty[k] == item[j].qty) {
+						aunt[i].no[k] = true;
+					}
 				}
 			}
 		}
-
 	}
 
 	for (int i = 0; i < 500; i++) {
-		if (aunt[i].no1 == true && aunt[i].no2 == true && aunt[i].no3 == true) {
+		if (aunt[i].no[0] == true && aunt[i].no[1] == true && aunt[i].no[2] == true) {
 			std::cout << i + 1 << std::endl;
 		}
 	}
