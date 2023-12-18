@@ -26,7 +26,7 @@ int main()
 		} while (!(hash.starts_with("00000")));
 		char locate_str = hash[5];
 		int location = locate_str - '0';
-		if (location <= 7) {
+		if (location < 8) {
 			if (!got[location])
 			{
 				password[location] = hash[6];
