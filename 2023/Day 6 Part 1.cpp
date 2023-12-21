@@ -24,5 +24,5 @@ int main()
 			}
 		}
 	}
-	std::cout << (races[0].wins );
+	std::cout << (races[0].wins + races[1].wins + races[2].wins + races[3].wins);
 }
